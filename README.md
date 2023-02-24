@@ -1,28 +1,34 @@
 Stromer API
 
-This Python package contains the interfaces for interacting with the Stromer web API that is normally used by the Stromer mobile app. Using this API you can retrieve data of your bike. This is the most complete and simple to use package to connect to your Stromer Bike without the need to use the mobile app. On top of that it offers features that the app does not provide (including downloading of data).
+This Python package contains the interfaces for interacting with the Stromer web API that is normally used by the Stromer mobile app. Using this API you can retrieve data of your bike. This is the most complete and simple to use package to connect to your Stromer Bike without the need to use the mobile app. On top of that it offers features that the app does not provide (including downloading of data e.g. with XlsxWriter [https://pypi.org/project/XlsxWriter/]).
 
 Installation:
 
     pip install -r requirements.txt
     pip install stromer_api
+    pip install XlsxWriter
 
 Usage:
 
     from stromer_api import StromerBike
     mybike = StromerBike(<your username>, <your password>, <stromer client id>)
 
-    # access available data easily
+    # access available data easily > simple version
     print(mybike.state.trip_distance)
     print(mybike.position.latitude)
+    # access available data easily > ext. version
+    print("battery state of health (SOH):", mybike.state.battery_health,"%")
+    print("battery state of charge (SOC):", mybike.state.battery_SOC,"%")
 
     # modify bike sensors
+    # mybike.sensors.user_torque_sensitivity = <torque (int)>`
     mybike.sensors.user_torque_sensitivity = 10
 
     # Export data to excel
+    # mybike.week_stats(year (int), week (int), num_weeks (int)).excel_dump()`
     mybike.week_stats(2022,1,52).excel_dump("exported_data")
 
-The client_id you should intercept using a proxy (eg. mitm proxy) or maybe it can be obtained from decompiling the android apk of the Stromer OMNI app. Many discussions can be found on the internet how to get hold of it.
+The client_id you should intercept using a proxy (eg. mitm proxy). Obtaining from decompiling the android apk of the Stromer OMNI app does not work anymore. Many discussions can be found on the internet how to get hold of it.
 
 The following properties can be accessed.
 
