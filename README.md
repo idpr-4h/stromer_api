@@ -16,6 +16,7 @@ Usage:
     # access available data easily > simple version
     print(mybike.state.trip_distance)
     print(mybike.position.latitude)
+    
     # access available data easily > ext. version
     print("battery state of health (SOH):", mybike.state.battery_health,"%")
     print("battery state of charge (SOC):", mybike.state.battery_SOC,"%")
